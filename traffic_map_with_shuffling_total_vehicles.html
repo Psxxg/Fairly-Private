@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_9c6f8ae87247a8d7888f96019543e1b7 {
+                #map_6bc7466483f9bafcf5aaa46e4d41f8bf {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,109 +35,23 @@
                 .leaflet-container { font-size: 1rem; }
             </style>
         
-    <script src="https://cdn.jsdelivr.net/npm/iso8601-js-period@0.2.1/iso8601.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_hm.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_leaflet_hm.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css"/>
-    
-            <script>
-                var TDHeatmap = L.TimeDimension.Layer.extend({
-
-            initialize: function(data, options) {
-                var heatmapCfg = {
-                    radius: 15,
-                    blur: 0.8,
-                    maxOpacity: 1.,
-                    scaleRadius: false,
-                    useLocalExtrema: false,
-                    latField: 'lat',
-                    lngField: 'lng',
-                    valueField: 'count',
-                    defaultWeight : 1,
-                };
-                heatmapCfg = $.extend({}, heatmapCfg, options.heatmapOptions || {});
-                var layer = new HeatmapOverlay(heatmapCfg);
-                L.TimeDimension.Layer.prototype.initialize.call(this, layer, options);
-                this._currentLoadedTime = 0;
-                this._currentTimeData = {
-                    data: []
-                    };
-                this.data= data;
-                this.defaultWeight = heatmapCfg.defaultWeight || 1;
-            },
-            onAdd: function(map) {
-                L.TimeDimension.Layer.prototype.onAdd.call(this, map);
-                map.addLayer(this._baseLayer);
-                if (this._timeDimension) {
-                    this._getDataForTime(this._timeDimension.getCurrentTime());
-                }
-            },
-            _onNewTimeLoading: function(ev) {
-                this._getDataForTime(ev.time);
-                return;
-            },
-            isReady: function(time) {
-                return (this._currentLoadedTime == time);
-            },
-            _update: function() {
-                this._baseLayer.setData(this._currentTimeData);
-                return true;
-            },
-            _getDataForTime: function(time) {
-                    delete this._currentTimeData.data;
-                    this._currentTimeData.data = [];
-                    var data = this.data[time-1];
-                    for (var i = 0; i < data.length; i++) {
-                        this._currentTimeData.data.push({
-                                lat: data[i][0],
-                                lng: data[i][1],
-                                count: data[i].length>2 ? data[i][2] : this.defaultWeight
-                            });
-                        }
-                    this._currentLoadedTime = time;
-                    if (this._timeDimension && time == this._timeDimension.getCurrentTime() && !this._timeDimension.isLoading()) {
-                        this._update();
-                    }
-                    this.fire('timeload', {
-                        time: time
-                    });
-                }
-        });
-
-        L.Control.TimeDimensionCustom = L.Control.TimeDimension.extend({
-            initialize: function(index, options) {
-                var playerOptions = {
-                    buffer: 1,
-                    minBufferReady: -1
-                    };
-                options.playerOptions = $.extend({}, playerOptions, options.playerOptions || {});
-                L.Control.TimeDimension.prototype.initialize.call(this, options);
-                this.index = index;
-                },
-            _getDisplayDateFormat: function(date){
-                return this.index[date.getTime()-1];
-                }
-            });
-            </script>
-                
 </head>
 <body>
     
     
-            <div class="folium-map" id="map_9c6f8ae87247a8d7888f96019543e1b7" ></div>
+            <div class="folium-map" id="map_6bc7466483f9bafcf5aaa46e4d41f8bf" ></div>
         
 </body>
 <script>
     
     
-            var map_9c6f8ae87247a8d7888f96019543e1b7 = L.map(
-                "map_9c6f8ae87247a8d7888f96019543e1b7",
+            var map_6bc7466483f9bafcf5aaa46e4d41f8bf = L.map(
+                "map_6bc7466483f9bafcf5aaa46e4d41f8bf",
                 {
-                    center: [65.0, 15.0],
+                    center: [62.0, 10.0],
                     crs: L.CRS.EPSG3857,
                     ...{
-  "zoom": 5,
+  "zoom": 6,
   "zoomControl": true,
   "preferCanvas": false,
 }
@@ -149,15 +63,15 @@
 
         
     
-            var tile_layer_a88725386c9e22e80447b5463b848776 = L.tileLayer(
-                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            var tile_layer_df31d5253a8d9ae406426d4c6f0101d5 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
                 {
   "minZoom": 0,
-  "maxZoom": 19,
-  "maxNativeZoom": 19,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
   "noWrap": false,
-  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
-  "subdomains": "abc",
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
   "detectRetina": false,
   "tms": false,
   "opacity": 1,
@@ -166,1134 +80,727 @@
             );
         
     
-            tile_layer_a88725386c9e22e80447b5463b848776.addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            tile_layer_df31d5253a8d9ae406426d4c6f0101d5.addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var marker_93c5dc8dcb9f116cc74bae86d6b13160 = L.marker(
+            var marker_033cdd118914394d01875acd501da957 = L.marker(
                 [59.9139, 10.7522],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_2d3d1a235593a0abfc8bd3d81fe11773 = L.AwesomeMarkers.icon(
+            var icon_d9b7a1a12986a647c03fd9e1c4a550ad = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_93c5dc8dcb9f116cc74bae86d6b13160.setIcon(icon_2d3d1a235593a0abfc8bd3d81fe11773);
+            marker_033cdd118914394d01875acd501da957.setIcon(icon_d9b7a1a12986a647c03fd9e1c4a550ad);
         
     
-        var popup_73b859985d05b892286c40d8bda34776 = L.popup({
+        var popup_9bca9a6f065a748e9ffc7483c5a3a8b0 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_c3817e2996c8720bb80103bb6b4f5a48 = $(`<div id="html_c3817e2996c8720bb80103bb6b4f5a48" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2567<br><b>1:00</b>: Vehicles: 2368<br><b>2:00</b>: Vehicles: 2277<br><b>3:00</b>: Vehicles: 2373<br><b>4:00</b>: Vehicles: 2566<br><b>5:00</b>: Vehicles: 2939<br><b>6:00</b>: Vehicles: 3451<br><b>7:00</b>: Vehicles: 3970<br><b>8:00</b>: Vehicles: 4560<br><b>9:00</b>: Vehicles: 5149<br><b>10:00</b>: Vehicles: 5708<br><b>11:00</b>: Vehicles: 6202<br><b>12:00</b>: Vehicles: 6523<br><b>13:00</b>: Vehicles: 6729<br><b>14:00</b>: Vehicles: 6819<br><b>15:00</b>: Vehicles: 6711<br><b>16:00</b>: Vehicles: 6506<br><b>17:00</b>: Vehicles: 6155<br><b>18:00</b>: Vehicles: 5703<br><b>19:00</b>: Vehicles: 5136<br><b>20:00</b>: Vehicles: 4541<br><b>21:00</b>: Vehicles: 4018<br><b>22:00</b>: Vehicles: 3457<br><b>23:00</b>: Vehicles: 2989<br></div>`)[0];
-                popup_73b859985d05b892286c40d8bda34776.setContent(html_c3817e2996c8720bb80103bb6b4f5a48);
+                var html_77c77844a06c828eb2315901804f96eb = $(`<div id="html_77c77844a06c828eb2315901804f96eb" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Oslo<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> rainy<br>             <b>Vehicles:</b> 3588<br>             <b>Delay:</b> 3 minutes         </div>`)[0];
+                popup_9bca9a6f065a748e9ffc7483c5a3a8b0.setContent(html_77c77844a06c828eb2315901804f96eb);
             
         
 
-        marker_93c5dc8dcb9f116cc74bae86d6b13160.bindPopup(popup_73b859985d05b892286c40d8bda34776)
+        marker_033cdd118914394d01875acd501da957.bindPopup(popup_9bca9a6f065a748e9ffc7483c5a3a8b0)
         ;
 
         
     
     
-            var marker_8b1b22402dfede728d53a652149c7904 = L.marker(
+            var marker_fc8893aac68a094991a11bdbb35e684b = L.marker(
                 [60.3928, 5.3239],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_3f2d820075bfec9454fb91ad7616910b = L.AwesomeMarkers.icon(
+            var icon_06121c73e5f2c3c2d7b633dc927409c4 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_8b1b22402dfede728d53a652149c7904.setIcon(icon_3f2d820075bfec9454fb91ad7616910b);
+            marker_fc8893aac68a094991a11bdbb35e684b.setIcon(icon_06121c73e5f2c3c2d7b633dc927409c4);
         
     
-        var popup_9b628d467c0dbc531e778f9adcfb389d = L.popup({
+        var popup_abea046dd230c054de1465301d831bd1 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_5d9d4045c87273e948da1b85897d820f = $(`<div id="html_5d9d4045c87273e948da1b85897d820f" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1826<br><b>1:00</b>: Vehicles: 1662<br><b>2:00</b>: Vehicles: 1614<br><b>3:00</b>: Vehicles: 1634<br><b>4:00</b>: Vehicles: 1815<br><b>5:00</b>: Vehicles: 2093<br><b>6:00</b>: Vehicles: 2404<br><b>7:00</b>: Vehicles: 2845<br><b>8:00</b>: Vehicles: 3242<br><b>9:00</b>: Vehicles: 3644<br><b>10:00</b>: Vehicles: 4014<br><b>11:00</b>: Vehicles: 4354<br><b>12:00</b>: Vehicles: 4632<br><b>13:00</b>: Vehicles: 4791<br><b>14:00</b>: Vehicles: 4851<br><b>15:00</b>: Vehicles: 4813<br><b>16:00</b>: Vehicles: 4625<br><b>17:00</b>: Vehicles: 4352<br><b>18:00</b>: Vehicles: 4104<br><b>19:00</b>: Vehicles: 3694<br><b>20:00</b>: Vehicles: 3238<br><b>21:00</b>: Vehicles: 2809<br><b>22:00</b>: Vehicles: 2426<br><b>23:00</b>: Vehicles: 2084<br></div>`)[0];
-                popup_9b628d467c0dbc531e778f9adcfb389d.setContent(html_5d9d4045c87273e948da1b85897d820f);
+                var html_c9826f190f17c1d36e3a3ea41121e07d = $(`<div id="html_c9826f190f17c1d36e3a3ea41121e07d" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Bergen<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> foggy<br>             <b>Vehicles:</b> 9970<br>             <b>Delay:</b> 16 minutes         </div>`)[0];
+                popup_abea046dd230c054de1465301d831bd1.setContent(html_c9826f190f17c1d36e3a3ea41121e07d);
             
         
 
-        marker_8b1b22402dfede728d53a652149c7904.bindPopup(popup_9b628d467c0dbc531e778f9adcfb389d)
+        marker_fc8893aac68a094991a11bdbb35e684b.bindPopup(popup_abea046dd230c054de1465301d831bd1)
         ;
 
         
     
     
-            var marker_4a8814a8385b7c08f89a96e55773188e = L.marker(
+            var marker_a3526bc7090fdf8e26f2424919f62beb = L.marker(
                 [63.4305, 10.3951],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_fc46486b3a2a50eff5f8c5cf3ebde4a4 = L.AwesomeMarkers.icon(
+            var icon_e85b37aa41c995724c920bf8f0c992aa = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_4a8814a8385b7c08f89a96e55773188e.setIcon(icon_fc46486b3a2a50eff5f8c5cf3ebde4a4);
+            marker_a3526bc7090fdf8e26f2424919f62beb.setIcon(icon_e85b37aa41c995724c920bf8f0c992aa);
         
     
-        var popup_86370000a5effc4a00de059f25e3869d = L.popup({
+        var popup_db2b677cec10db0e95a3b7272eb8558b = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_ddd58934f967dfb69e8311551c21fc99 = $(`<div id="html_ddd58934f967dfb69e8311551c21fc99" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1854<br><b>1:00</b>: Vehicles: 1745<br><b>2:00</b>: Vehicles: 1621<br><b>3:00</b>: Vehicles: 1710<br><b>4:00</b>: Vehicles: 1783<br><b>5:00</b>: Vehicles: 2149<br><b>6:00</b>: Vehicles: 2464<br><b>7:00</b>: Vehicles: 2883<br><b>8:00</b>: Vehicles: 3290<br><b>9:00</b>: Vehicles: 3779<br><b>10:00</b>: Vehicles: 4107<br><b>11:00</b>: Vehicles: 4407<br><b>12:00</b>: Vehicles: 4677<br><b>13:00</b>: Vehicles: 4871<br><b>14:00</b>: Vehicles: 4915<br><b>15:00</b>: Vehicles: 4918<br><b>16:00</b>: Vehicles: 4718<br><b>17:00</b>: Vehicles: 4477<br><b>18:00</b>: Vehicles: 4154<br><b>19:00</b>: Vehicles: 3706<br><b>20:00</b>: Vehicles: 3291<br><b>21:00</b>: Vehicles: 2855<br><b>22:00</b>: Vehicles: 2429<br><b>23:00</b>: Vehicles: 2114<br></div>`)[0];
-                popup_86370000a5effc4a00de059f25e3869d.setContent(html_ddd58934f967dfb69e8311551c21fc99);
+                var html_f2517c8fb3ebfea927e3ba9b4d2b8f13 = $(`<div id="html_f2517c8fb3ebfea927e3ba9b4d2b8f13" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Trondheim<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 9923<br>             <b>Delay:</b> 9 minutes         </div>`)[0];
+                popup_db2b677cec10db0e95a3b7272eb8558b.setContent(html_f2517c8fb3ebfea927e3ba9b4d2b8f13);
             
         
 
-        marker_4a8814a8385b7c08f89a96e55773188e.bindPopup(popup_86370000a5effc4a00de059f25e3869d)
+        marker_a3526bc7090fdf8e26f2424919f62beb.bindPopup(popup_db2b677cec10db0e95a3b7272eb8558b)
         ;
 
         
     
     
-            var marker_036c48c7bbf603fd5c8aa531a48f51a9 = L.marker(
+            var marker_eafad2aa94802c1fd9f7a8644e16265c = L.marker(
                 [58.969, 5.7331],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_e65e64b2e9b63426bc1275042323a0c8 = L.AwesomeMarkers.icon(
+            var icon_8acde338242684aaf170ebc943f73b66 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_036c48c7bbf603fd5c8aa531a48f51a9.setIcon(icon_e65e64b2e9b63426bc1275042323a0c8);
+            marker_eafad2aa94802c1fd9f7a8644e16265c.setIcon(icon_8acde338242684aaf170ebc943f73b66);
         
     
-        var popup_881006ca9b8a31ca1b14c2c052f66557 = L.popup({
+        var popup_d24c47281a320bce9fd86baae8610c29 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_f796e01163a6c2dde81814ea17e0bec9 = $(`<div id="html_f796e01163a6c2dde81814ea17e0bec9" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2546<br><b>1:00</b>: Vehicles: 2358<br><b>2:00</b>: Vehicles: 2255<br><b>3:00</b>: Vehicles: 2320<br><b>4:00</b>: Vehicles: 2552<br><b>5:00</b>: Vehicles: 2911<br><b>6:00</b>: Vehicles: 3317<br><b>7:00</b>: Vehicles: 3864<br><b>8:00</b>: Vehicles: 4495<br><b>9:00</b>: Vehicles: 5055<br><b>10:00</b>: Vehicles: 5604<br><b>11:00</b>: Vehicles: 6095<br><b>12:00</b>: Vehicles: 6493<br><b>13:00</b>: Vehicles: 6660<br><b>14:00</b>: Vehicles: 6780<br><b>15:00</b>: Vehicles: 6674<br><b>16:00</b>: Vehicles: 6450<br><b>17:00</b>: Vehicles: 6098<br><b>18:00</b>: Vehicles: 5621<br><b>19:00</b>: Vehicles: 5102<br><b>20:00</b>: Vehicles: 4539<br><b>21:00</b>: Vehicles: 3972<br><b>22:00</b>: Vehicles: 3407<br><b>23:00</b>: Vehicles: 2899<br></div>`)[0];
-                popup_881006ca9b8a31ca1b14c2c052f66557.setContent(html_f796e01163a6c2dde81814ea17e0bec9);
+                var html_968c32a121c35e0a091edbc3e5563bae = $(`<div id="html_968c32a121c35e0a091edbc3e5563bae" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Stavanger<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> rainy<br>             <b>Vehicles:</b> 2528<br>             <b>Delay:</b> 2 minutes         </div>`)[0];
+                popup_d24c47281a320bce9fd86baae8610c29.setContent(html_968c32a121c35e0a091edbc3e5563bae);
             
         
 
-        marker_036c48c7bbf603fd5c8aa531a48f51a9.bindPopup(popup_881006ca9b8a31ca1b14c2c052f66557)
+        marker_eafad2aa94802c1fd9f7a8644e16265c.bindPopup(popup_d24c47281a320bce9fd86baae8610c29)
         ;
 
         
     
     
-            var marker_17c605d11b7abc2e92f3299c006971bb = L.marker(
+            var marker_fdbc5cce7cffa764a922a870bb2aeb54 = L.marker(
                 [58.1467, 7.9956],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_d2a83509c247c3ccead3a881d64419aa = L.AwesomeMarkers.icon(
+            var icon_03f0b33634d52c9a824eff736190e69f = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_17c605d11b7abc2e92f3299c006971bb.setIcon(icon_d2a83509c247c3ccead3a881d64419aa);
+            marker_fdbc5cce7cffa764a922a870bb2aeb54.setIcon(icon_03f0b33634d52c9a824eff736190e69f);
         
     
-        var popup_0d841811d40be566874f5d1d923354d3 = L.popup({
+        var popup_74f3aac53ab1afd55e1de85d2a7ea0df = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_5e957207d5cbf401c71a709a92ee1251 = $(`<div id="html_5e957207d5cbf401c71a709a92ee1251" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2729<br><b>1:00</b>: Vehicles: 2441<br><b>2:00</b>: Vehicles: 2406<br><b>3:00</b>: Vehicles: 2456<br><b>4:00</b>: Vehicles: 2719<br><b>5:00</b>: Vehicles: 3085<br><b>6:00</b>: Vehicles: 3586<br><b>7:00</b>: Vehicles: 4167<br><b>8:00</b>: Vehicles: 4787<br><b>9:00</b>: Vehicles: 5401<br><b>10:00</b>: Vehicles: 5969<br><b>11:00</b>: Vehicles: 6513<br><b>12:00</b>: Vehicles: 6889<br><b>13:00</b>: Vehicles: 7086<br><b>14:00</b>: Vehicles: 7172<br><b>15:00</b>: Vehicles: 7086<br><b>16:00</b>: Vehicles: 6813<br><b>17:00</b>: Vehicles: 6421<br><b>18:00</b>: Vehicles: 5990<br><b>19:00</b>: Vehicles: 5403<br><b>20:00</b>: Vehicles: 4840<br><b>21:00</b>: Vehicles: 4156<br><b>22:00</b>: Vehicles: 3606<br><b>23:00</b>: Vehicles: 3046<br></div>`)[0];
-                popup_0d841811d40be566874f5d1d923354d3.setContent(html_5e957207d5cbf401c71a709a92ee1251);
+                var html_ef6c5772ede23671aac0aeb28346c737 = $(`<div id="html_ef6c5772ede23671aac0aeb28346c737" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Kristiansand<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 6718<br>             <b>Delay:</b> 6 minutes         </div>`)[0];
+                popup_74f3aac53ab1afd55e1de85d2a7ea0df.setContent(html_ef6c5772ede23671aac0aeb28346c737);
             
         
 
-        marker_17c605d11b7abc2e92f3299c006971bb.bindPopup(popup_0d841811d40be566874f5d1d923354d3)
+        marker_fdbc5cce7cffa764a922a870bb2aeb54.bindPopup(popup_74f3aac53ab1afd55e1de85d2a7ea0df)
         ;
 
         
     
     
-            var marker_4c0b9711a78335f38c625366197970a0 = L.marker(
+            var marker_dfad1323513f3b1fe8339ca21eac1c64 = L.marker(
                 [69.6496, 18.956],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_f16dd3a9fc1911e9b631f6689e0e8cc7 = L.AwesomeMarkers.icon(
+            var icon_192dfb1fd5b1255d8507b83e88281cba = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_4c0b9711a78335f38c625366197970a0.setIcon(icon_f16dd3a9fc1911e9b631f6689e0e8cc7);
+            marker_dfad1323513f3b1fe8339ca21eac1c64.setIcon(icon_192dfb1fd5b1255d8507b83e88281cba);
         
     
-        var popup_cf15679d696b6e1b646ba50c9badbec7 = L.popup({
+        var popup_a70e3fe79766edc24eba0d4a1adb7b5f = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_408119e36cfc303b093fa5321e0798bd = $(`<div id="html_408119e36cfc303b093fa5321e0798bd" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 939<br><b>1:00</b>: Vehicles: 846<br><b>2:00</b>: Vehicles: 832<br><b>3:00</b>: Vehicles: 867<br><b>4:00</b>: Vehicles: 1001<br><b>5:00</b>: Vehicles: 1154<br><b>6:00</b>: Vehicles: 1251<br><b>7:00</b>: Vehicles: 1472<br><b>8:00</b>: Vehicles: 1688<br><b>9:00</b>: Vehicles: 1881<br><b>10:00</b>: Vehicles: 2079<br><b>11:00</b>: Vehicles: 2177<br><b>12:00</b>: Vehicles: 2410<br><b>13:00</b>: Vehicles: 2475<br><b>14:00</b>: Vehicles: 2509<br><b>15:00</b>: Vehicles: 2379<br><b>16:00</b>: Vehicles: 2408<br><b>17:00</b>: Vehicles: 2260<br><b>18:00</b>: Vehicles: 2142<br><b>19:00</b>: Vehicles: 1886<br><b>20:00</b>: Vehicles: 1649<br><b>21:00</b>: Vehicles: 1455<br><b>22:00</b>: Vehicles: 1255<br><b>23:00</b>: Vehicles: 1080<br></div>`)[0];
-                popup_cf15679d696b6e1b646ba50c9badbec7.setContent(html_408119e36cfc303b093fa5321e0798bd);
+                var html_5de08354ddad3b7174f8ac750eb56d95 = $(`<div id="html_5de08354ddad3b7174f8ac750eb56d95" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Tromsø<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> foggy<br>             <b>Vehicles:</b> 6928<br>             <b>Delay:</b> 26 minutes         </div>`)[0];
+                popup_a70e3fe79766edc24eba0d4a1adb7b5f.setContent(html_5de08354ddad3b7174f8ac750eb56d95);
             
         
 
-        marker_4c0b9711a78335f38c625366197970a0.bindPopup(popup_cf15679d696b6e1b646ba50c9badbec7)
+        marker_dfad1323513f3b1fe8339ca21eac1c64.bindPopup(popup_a70e3fe79766edc24eba0d4a1adb7b5f)
         ;
 
         
     
     
-            var marker_4d4792303e923f457e2ecf0c1477e97c = L.marker(
+            var marker_40885ea4cb127fdcf5862a1f0584cada = L.marker(
                 [58.8524, 5.7352],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_94fee7247d1547706a534098fe923316 = L.AwesomeMarkers.icon(
+            var icon_c74e7ee172528778f669855163ec776d = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_4d4792303e923f457e2ecf0c1477e97c.setIcon(icon_94fee7247d1547706a534098fe923316);
+            marker_40885ea4cb127fdcf5862a1f0584cada.setIcon(icon_c74e7ee172528778f669855163ec776d);
         
     
-        var popup_8f9d3322f2ad2612fd5857cd6df87180 = L.popup({
+        var popup_b5b525c44144e9099fc9f196be5ca468 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_0cc45f335fe0fbcecae73dccf11e1bec = $(`<div id="html_0cc45f335fe0fbcecae73dccf11e1bec" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1018<br><b>1:00</b>: Vehicles: 885<br><b>2:00</b>: Vehicles: 841<br><b>3:00</b>: Vehicles: 876<br><b>4:00</b>: Vehicles: 991<br><b>5:00</b>: Vehicles: 1113<br><b>6:00</b>: Vehicles: 1273<br><b>7:00</b>: Vehicles: 1482<br><b>8:00</b>: Vehicles: 1688<br><b>9:00</b>: Vehicles: 1925<br><b>10:00</b>: Vehicles: 2155<br><b>11:00</b>: Vehicles: 2322<br><b>12:00</b>: Vehicles: 2449<br><b>13:00</b>: Vehicles: 2540<br><b>14:00</b>: Vehicles: 2565<br><b>15:00</b>: Vehicles: 2469<br><b>16:00</b>: Vehicles: 2433<br><b>17:00</b>: Vehicles: 2361<br><b>18:00</b>: Vehicles: 2136<br><b>19:00</b>: Vehicles: 1913<br><b>20:00</b>: Vehicles: 1710<br><b>21:00</b>: Vehicles: 1484<br><b>22:00</b>: Vehicles: 1269<br><b>23:00</b>: Vehicles: 1098<br></div>`)[0];
-                popup_8f9d3322f2ad2612fd5857cd6df87180.setContent(html_0cc45f335fe0fbcecae73dccf11e1bec);
+                var html_cb1a782ff47a5c7a516328c275221135 = $(`<div id="html_cb1a782ff47a5c7a516328c275221135" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Sandnes<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 8105<br>             <b>Delay:</b> 8 minutes         </div>`)[0];
+                popup_b5b525c44144e9099fc9f196be5ca468.setContent(html_cb1a782ff47a5c7a516328c275221135);
             
         
 
-        marker_4d4792303e923f457e2ecf0c1477e97c.bindPopup(popup_8f9d3322f2ad2612fd5857cd6df87180)
+        marker_40885ea4cb127fdcf5862a1f0584cada.bindPopup(popup_b5b525c44144e9099fc9f196be5ca468)
         ;
 
         
     
     
-            var marker_7a5d308010e1481ff6560e6d73965179 = L.marker(
+            var marker_32474b8966bb6b6932352305787e6041 = L.marker(
                 [59.7439, 10.2045],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_697cb1383d801b39f701500ce5d2af98 = L.AwesomeMarkers.icon(
+            var icon_1923aa3e5d97abe8e28b28b02e3e8461 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_7a5d308010e1481ff6560e6d73965179.setIcon(icon_697cb1383d801b39f701500ce5d2af98);
+            marker_32474b8966bb6b6932352305787e6041.setIcon(icon_1923aa3e5d97abe8e28b28b02e3e8461);
         
     
-        var popup_7a69df7510aeef5ba2fb748f2841ebc6 = L.popup({
+        var popup_5f3a96c599e366bb83fc7e5e1f587928 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_afc700f1e0a894cae70274db3f62a7d4 = $(`<div id="html_afc700f1e0a894cae70274db3f62a7d4" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 935<br><b>1:00</b>: Vehicles: 926<br><b>2:00</b>: Vehicles: 915<br><b>3:00</b>: Vehicles: 884<br><b>4:00</b>: Vehicles: 993<br><b>5:00</b>: Vehicles: 1110<br><b>6:00</b>: Vehicles: 1341<br><b>7:00</b>: Vehicles: 1486<br><b>8:00</b>: Vehicles: 1737<br><b>9:00</b>: Vehicles: 1899<br><b>10:00</b>: Vehicles: 2149<br><b>11:00</b>: Vehicles: 2346<br><b>12:00</b>: Vehicles: 2483<br><b>13:00</b>: Vehicles: 2579<br><b>14:00</b>: Vehicles: 2599<br><b>15:00</b>: Vehicles: 2553<br><b>16:00</b>: Vehicles: 2433<br><b>17:00</b>: Vehicles: 2354<br><b>18:00</b>: Vehicles: 2182<br><b>19:00</b>: Vehicles: 1938<br><b>20:00</b>: Vehicles: 1740<br><b>21:00</b>: Vehicles: 1491<br><b>22:00</b>: Vehicles: 1275<br><b>23:00</b>: Vehicles: 1089<br></div>`)[0];
-                popup_7a69df7510aeef5ba2fb748f2841ebc6.setContent(html_afc700f1e0a894cae70274db3f62a7d4);
+                var html_7325c965cc66649fb966e37d54109916 = $(`<div id="html_7325c965cc66649fb966e37d54109916" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Drammen<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 4160<br>             <b>Delay:</b> 4 minutes         </div>`)[0];
+                popup_5f3a96c599e366bb83fc7e5e1f587928.setContent(html_7325c965cc66649fb966e37d54109916);
             
         
 
-        marker_7a5d308010e1481ff6560e6d73965179.bindPopup(popup_7a69df7510aeef5ba2fb748f2841ebc6)
+        marker_32474b8966bb6b6932352305787e6041.bindPopup(popup_5f3a96c599e366bb83fc7e5e1f587928)
         ;
 
         
     
     
-            var marker_7634a6d1556c7da3c86e2080ab2e573d = L.marker(
+            var marker_17fef1c496df1eb06dbc97692ecb62f3 = L.marker(
                 [59.2181, 10.9298],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_eac8b0dd016d493ab1ec3f8089ad504a = L.AwesomeMarkers.icon(
+            var icon_b5cc57d5212b0eb6cfc1cb81882a26c2 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_7634a6d1556c7da3c86e2080ab2e573d.setIcon(icon_eac8b0dd016d493ab1ec3f8089ad504a);
+            marker_17fef1c496df1eb06dbc97692ecb62f3.setIcon(icon_b5cc57d5212b0eb6cfc1cb81882a26c2);
         
     
-        var popup_f6d3eee0f752abeeb6f1edb97fcd68b4 = L.popup({
+        var popup_55a4b460a738cf29dd4edee321eb0f2e = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_887b2ef346848bb695a40b534621d245 = $(`<div id="html_887b2ef346848bb695a40b534621d245" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2468<br><b>1:00</b>: Vehicles: 2279<br><b>2:00</b>: Vehicles: 2178<br><b>3:00</b>: Vehicles: 2221<br><b>4:00</b>: Vehicles: 2441<br><b>5:00</b>: Vehicles: 2787<br><b>6:00</b>: Vehicles: 3211<br><b>7:00</b>: Vehicles: 3747<br><b>8:00</b>: Vehicles: 4332<br><b>9:00</b>: Vehicles: 4936<br><b>10:00</b>: Vehicles: 5409<br><b>11:00</b>: Vehicles: 5971<br><b>12:00</b>: Vehicles: 6205<br><b>13:00</b>: Vehicles: 6429<br><b>14:00</b>: Vehicles: 6501<br><b>15:00</b>: Vehicles: 6404<br><b>16:00</b>: Vehicles: 6190<br><b>17:00</b>: Vehicles: 5864<br><b>18:00</b>: Vehicles: 5372<br><b>19:00</b>: Vehicles: 4864<br><b>20:00</b>: Vehicles: 4324<br><b>21:00</b>: Vehicles: 3744<br><b>22:00</b>: Vehicles: 3244<br><b>23:00</b>: Vehicles: 2835<br></div>`)[0];
-                popup_f6d3eee0f752abeeb6f1edb97fcd68b4.setContent(html_887b2ef346848bb695a40b534621d245);
+                var html_625b254cf5708b888288825585bfdfc2 = $(`<div id="html_625b254cf5708b888288825585bfdfc2" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Fredrikstad<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> snowy<br>             <b>Vehicles:</b> 2312<br>             <b>Delay:</b> 2 minutes         </div>`)[0];
+                popup_55a4b460a738cf29dd4edee321eb0f2e.setContent(html_625b254cf5708b888288825585bfdfc2);
             
         
 
-        marker_7634a6d1556c7da3c86e2080ab2e573d.bindPopup(popup_f6d3eee0f752abeeb6f1edb97fcd68b4)
+        marker_17fef1c496df1eb06dbc97692ecb62f3.bindPopup(popup_55a4b460a738cf29dd4edee321eb0f2e)
         ;
 
         
     
     
-            var marker_8e8e9d7732a8af860bd12f08bc73c1d9 = L.marker(
+            var marker_f094cc887626aaac30108010e65407bc = L.marker(
                 [59.139, 9.6561],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_4d91e8605f50a58612e1df595214f866 = L.AwesomeMarkers.icon(
+            var icon_6cb19ca32b2b905c49ff73c7907f11b7 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_8e8e9d7732a8af860bd12f08bc73c1d9.setIcon(icon_4d91e8605f50a58612e1df595214f866);
+            marker_f094cc887626aaac30108010e65407bc.setIcon(icon_6cb19ca32b2b905c49ff73c7907f11b7);
         
     
-        var popup_72124969c2c76a4e5e59ee8342bbebe2 = L.popup({
+        var popup_8d39f6e55fbc8e3d515e055c4330d9d8 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_c1aa38f4bec86f556c2e02218d0fb15b = $(`<div id="html_c1aa38f4bec86f556c2e02218d0fb15b" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 391<br><b>1:00</b>: Vehicles: 309<br><b>2:00</b>: Vehicles: 345<br><b>3:00</b>: Vehicles: 336<br><b>4:00</b>: Vehicles: 384<br><b>5:00</b>: Vehicles: 446<br><b>6:00</b>: Vehicles: 503<br><b>7:00</b>: Vehicles: 663<br><b>8:00</b>: Vehicles: 646<br><b>9:00</b>: Vehicles: 784<br><b>10:00</b>: Vehicles: 886<br><b>11:00</b>: Vehicles: 941<br><b>12:00</b>: Vehicles: 983<br><b>13:00</b>: Vehicles: 1006<br><b>14:00</b>: Vehicles: 1022<br><b>15:00</b>: Vehicles: 1020<br><b>16:00</b>: Vehicles: 978<br><b>17:00</b>: Vehicles: 929<br><b>18:00</b>: Vehicles: 869<br><b>19:00</b>: Vehicles: 771<br><b>20:00</b>: Vehicles: 679<br><b>21:00</b>: Vehicles: 612<br><b>22:00</b>: Vehicles: 465<br><b>23:00</b>: Vehicles: 449<br></div>`)[0];
-                popup_72124969c2c76a4e5e59ee8342bbebe2.setContent(html_c1aa38f4bec86f556c2e02218d0fb15b);
+                var html_dba7f940bbae127b332397415fb2423f = $(`<div id="html_dba7f940bbae127b332397415fb2423f" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Porsgrunn<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 5193<br>             <b>Delay:</b> 11 minutes         </div>`)[0];
+                popup_8d39f6e55fbc8e3d515e055c4330d9d8.setContent(html_dba7f940bbae127b332397415fb2423f);
             
         
 
-        marker_8e8e9d7732a8af860bd12f08bc73c1d9.bindPopup(popup_72124969c2c76a4e5e59ee8342bbebe2)
+        marker_f094cc887626aaac30108010e65407bc.bindPopup(popup_8d39f6e55fbc8e3d515e055c4330d9d8)
         ;
 
         
     
     
-            var marker_4b74e7f04e8225199c8ce8684da027bc = L.marker(
+            var marker_329b6c32c37882d19005d1b133253efc = L.marker(
                 [62.4722, 6.1549],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_16e961f0fddeb22b6f2a96f79537374b = L.AwesomeMarkers.icon(
+            var icon_dfad3d30a5d9b4901de1622217f635c9 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_4b74e7f04e8225199c8ce8684da027bc.setIcon(icon_16e961f0fddeb22b6f2a96f79537374b);
+            marker_329b6c32c37882d19005d1b133253efc.setIcon(icon_dfad3d30a5d9b4901de1622217f635c9);
         
     
-        var popup_77855a496f6d83a439e012ef97631b9c = L.popup({
+        var popup_cecbc89b74dcf0bcbfd11eb915c78704 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_83b2be207454c56a950922693ae87150 = $(`<div id="html_83b2be207454c56a950922693ae87150" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1577<br><b>1:00</b>: Vehicles: 1450<br><b>2:00</b>: Vehicles: 1427<br><b>3:00</b>: Vehicles: 1444<br><b>4:00</b>: Vehicles: 1612<br><b>5:00</b>: Vehicles: 1883<br><b>6:00</b>: Vehicles: 2097<br><b>7:00</b>: Vehicles: 2460<br><b>8:00</b>: Vehicles: 2801<br><b>9:00</b>: Vehicles: 3171<br><b>10:00</b>: Vehicles: 3462<br><b>11:00</b>: Vehicles: 3786<br><b>12:00</b>: Vehicles: 4055<br><b>13:00</b>: Vehicles: 4163<br><b>14:00</b>: Vehicles: 4255<br><b>15:00</b>: Vehicles: 4197<br><b>16:00</b>: Vehicles: 4036<br><b>17:00</b>: Vehicles: 3775<br><b>18:00</b>: Vehicles: 3533<br><b>19:00</b>: Vehicles: 3245<br><b>20:00</b>: Vehicles: 2790<br><b>21:00</b>: Vehicles: 2453<br><b>22:00</b>: Vehicles: 2115<br><b>23:00</b>: Vehicles: 1852<br></div>`)[0];
-                popup_77855a496f6d83a439e012ef97631b9c.setContent(html_83b2be207454c56a950922693ae87150);
+                var html_db3e626380ced43cb5532a23a0a7379f = $(`<div id="html_db3e626380ced43cb5532a23a0a7379f" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Ålesund<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> rainy<br>             <b>Vehicles:</b> 3293<br>             <b>Delay:</b> 3 minutes         </div>`)[0];
+                popup_cecbc89b74dcf0bcbfd11eb915c78704.setContent(html_db3e626380ced43cb5532a23a0a7379f);
             
         
 
-        marker_4b74e7f04e8225199c8ce8684da027bc.bindPopup(popup_77855a496f6d83a439e012ef97631b9c)
+        marker_329b6c32c37882d19005d1b133253efc.bindPopup(popup_cecbc89b74dcf0bcbfd11eb915c78704)
         ;
 
         
     
     
-            var marker_b143be0ad3a1226edbcaaeb6d0a37350 = L.marker(
+            var marker_178e2a5de4412c7e6090cc9eea8c2b5a = L.marker(
                 [59.4138, 5.268],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_86533f3dde5186eb9dc7330a1d6d26c9 = L.AwesomeMarkers.icon(
+            var icon_71ec18c496695e8c2117a92c470f9b4d = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_b143be0ad3a1226edbcaaeb6d0a37350.setIcon(icon_86533f3dde5186eb9dc7330a1d6d26c9);
+            marker_178e2a5de4412c7e6090cc9eea8c2b5a.setIcon(icon_71ec18c496695e8c2117a92c470f9b4d);
         
     
-        var popup_6f98be835bc5bfb8aae2344fc5c7bff6 = L.popup({
+        var popup_f6779a90d490133e4e818e312ca8b04c = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_9f3ff3d9f4770b5ebc783599dda8d88a = $(`<div id="html_9f3ff3d9f4770b5ebc783599dda8d88a" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2145<br><b>1:00</b>: Vehicles: 1913<br><b>2:00</b>: Vehicles: 1865<br><b>3:00</b>: Vehicles: 1947<br><b>4:00</b>: Vehicles: 2147<br><b>5:00</b>: Vehicles: 2471<br><b>6:00</b>: Vehicles: 2813<br><b>7:00</b>: Vehicles: 3254<br><b>8:00</b>: Vehicles: 3774<br><b>9:00</b>: Vehicles: 4269<br><b>10:00</b>: Vehicles: 4629<br><b>11:00</b>: Vehicles: 5124<br><b>12:00</b>: Vehicles: 5408<br><b>13:00</b>: Vehicles: 5613<br><b>14:00</b>: Vehicles: 5671<br><b>15:00</b>: Vehicles: 5597<br><b>16:00</b>: Vehicles: 5468<br><b>17:00</b>: Vehicles: 5107<br><b>18:00</b>: Vehicles: 4718<br><b>19:00</b>: Vehicles: 4313<br><b>20:00</b>: Vehicles: 3786<br><b>21:00</b>: Vehicles: 3293<br><b>22:00</b>: Vehicles: 2835<br><b>23:00</b>: Vehicles: 2461<br></div>`)[0];
-                popup_6f98be835bc5bfb8aae2344fc5c7bff6.setContent(html_9f3ff3d9f4770b5ebc783599dda8d88a);
+                var html_a9e57bdc58cb9db9935f3373de46a96b = $(`<div id="html_a9e57bdc58cb9db9935f3373de46a96b" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Haugesund<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 9163<br>             <b>Delay:</b> 9 minutes         </div>`)[0];
+                popup_f6779a90d490133e4e818e312ca8b04c.setContent(html_a9e57bdc58cb9db9935f3373de46a96b);
             
         
 
-        marker_b143be0ad3a1226edbcaaeb6d0a37350.bindPopup(popup_6f98be835bc5bfb8aae2344fc5c7bff6)
+        marker_178e2a5de4412c7e6090cc9eea8c2b5a.bindPopup(popup_f6779a90d490133e4e818e312ca8b04c)
         ;
 
         
     
     
-            var marker_84bbe4f40c2d0e23a40157144f2671c1 = L.marker(
+            var marker_c212a6016a89ac1c7fc2d6b11088fe2c = L.marker(
                 [59.2675, 10.4076],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_a5d8fa984ba5007027a9cae84d728bb2 = L.AwesomeMarkers.icon(
+            var icon_76a999b45cd8ee2f2453b114cb6892aa = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_84bbe4f40c2d0e23a40157144f2671c1.setIcon(icon_a5d8fa984ba5007027a9cae84d728bb2);
+            marker_c212a6016a89ac1c7fc2d6b11088fe2c.setIcon(icon_76a999b45cd8ee2f2453b114cb6892aa);
         
     
-        var popup_aed05d9b547511ae7bba495dae44bb1e = L.popup({
+        var popup_ffe5578b6e9d7f58099ace34151db768 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_ccbc2f6820112b3076550ea90042f9d8 = $(`<div id="html_ccbc2f6820112b3076550ea90042f9d8" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2507<br><b>1:00</b>: Vehicles: 2277<br><b>2:00</b>: Vehicles: 2232<br><b>3:00</b>: Vehicles: 2329<br><b>4:00</b>: Vehicles: 2499<br><b>5:00</b>: Vehicles: 2898<br><b>6:00</b>: Vehicles: 3308<br><b>7:00</b>: Vehicles: 3821<br><b>8:00</b>: Vehicles: 4417<br><b>9:00</b>: Vehicles: 4960<br><b>10:00</b>: Vehicles: 5454<br><b>11:00</b>: Vehicles: 5953<br><b>12:00</b>: Vehicles: 6335<br><b>13:00</b>: Vehicles: 6542<br><b>14:00</b>: Vehicles: 6596<br><b>15:00</b>: Vehicles: 6531<br><b>16:00</b>: Vehicles: 6308<br><b>17:00</b>: Vehicles: 5943<br><b>18:00</b>: Vehicles: 5488<br><b>19:00</b>: Vehicles: 5004<br><b>20:00</b>: Vehicles: 4400<br><b>21:00</b>: Vehicles: 3839<br><b>22:00</b>: Vehicles: 3309<br><b>23:00</b>: Vehicles: 2858<br></div>`)[0];
-                popup_aed05d9b547511ae7bba495dae44bb1e.setContent(html_ccbc2f6820112b3076550ea90042f9d8);
+                var html_3d8cf2d9323070f1fc3b222cecd406e7 = $(`<div id="html_3d8cf2d9323070f1fc3b222cecd406e7" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Tønsberg<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 5577<br>             <b>Delay:</b> 5 minutes         </div>`)[0];
+                popup_ffe5578b6e9d7f58099ace34151db768.setContent(html_3d8cf2d9323070f1fc3b222cecd406e7);
             
         
 
-        marker_84bbe4f40c2d0e23a40157144f2671c1.bindPopup(popup_aed05d9b547511ae7bba495dae44bb1e)
+        marker_c212a6016a89ac1c7fc2d6b11088fe2c.bindPopup(popup_ffe5578b6e9d7f58099ace34151db768)
         ;
 
         
     
     
-            var marker_04c96ebcda4c74b6fe4d2307d6c5b71c = L.marker(
+            var marker_5663c3f0ae169bc4bd9ad57a8f5eb22d = L.marker(
                 [59.434, 10.6577],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_593a8dffa99a60002fa7ba95425ff2ab = L.AwesomeMarkers.icon(
+            var icon_a5c958e20c37cc69710ad71f4fc5db61 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_04c96ebcda4c74b6fe4d2307d6c5b71c.setIcon(icon_593a8dffa99a60002fa7ba95425ff2ab);
+            marker_5663c3f0ae169bc4bd9ad57a8f5eb22d.setIcon(icon_a5c958e20c37cc69710ad71f4fc5db61);
         
     
-        var popup_d5b2cd55f5c1a4f985ef391da281012a = L.popup({
+        var popup_b369aed6e35c40be0b08e37429bbf1db = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_e1b5dcba1e4010422d5450ecf61cef34 = $(`<div id="html_e1b5dcba1e4010422d5450ecf61cef34" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1610<br><b>1:00</b>: Vehicles: 1439<br><b>2:00</b>: Vehicles: 1366<br><b>3:00</b>: Vehicles: 1457<br><b>4:00</b>: Vehicles: 1600<br><b>5:00</b>: Vehicles: 1833<br><b>6:00</b>: Vehicles: 2109<br><b>7:00</b>: Vehicles: 2443<br><b>8:00</b>: Vehicles: 2801<br><b>9:00</b>: Vehicles: 3173<br><b>10:00</b>: Vehicles: 3510<br><b>11:00</b>: Vehicles: 3790<br><b>12:00</b>: Vehicles: 4016<br><b>13:00</b>: Vehicles: 4166<br><b>14:00</b>: Vehicles: 4218<br><b>15:00</b>: Vehicles: 4205<br><b>16:00</b>: Vehicles: 4007<br><b>17:00</b>: Vehicles: 3749<br><b>18:00</b>: Vehicles: 3512<br><b>19:00</b>: Vehicles: 3199<br><b>20:00</b>: Vehicles: 2796<br><b>21:00</b>: Vehicles: 2423<br><b>22:00</b>: Vehicles: 2063<br><b>23:00</b>: Vehicles: 1787<br></div>`)[0];
-                popup_d5b2cd55f5c1a4f985ef391da281012a.setContent(html_e1b5dcba1e4010422d5450ecf61cef34);
+                var html_ea9c2f46e0303f00efa5e9eebf02e1fb = $(`<div id="html_ea9c2f46e0303f00efa5e9eebf02e1fb" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Moss<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 3667<br>             <b>Delay:</b> 3 minutes         </div>`)[0];
+                popup_b369aed6e35c40be0b08e37429bbf1db.setContent(html_ea9c2f46e0303f00efa5e9eebf02e1fb);
             
         
 
-        marker_04c96ebcda4c74b6fe4d2307d6c5b71c.bindPopup(popup_d5b2cd55f5c1a4f985ef391da281012a)
+        marker_5663c3f0ae169bc4bd9ad57a8f5eb22d.bindPopup(popup_b369aed6e35c40be0b08e37429bbf1db)
         ;
 
         
     
     
-            var marker_c2846e07eb8cb1f51b4af97c9d988376 = L.marker(
+            var marker_8e01c80d175522af35c19c143c2a0fdf = L.marker(
                 [67.2804, 14.4049],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_ce59677ad68f12c4a9071a03627d41d1 = L.AwesomeMarkers.icon(
+            var icon_27ab8bdc0f85a5fdbafe6fbdd4ea7371 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_c2846e07eb8cb1f51b4af97c9d988376.setIcon(icon_ce59677ad68f12c4a9071a03627d41d1);
+            marker_8e01c80d175522af35c19c143c2a0fdf.setIcon(icon_27ab8bdc0f85a5fdbafe6fbdd4ea7371);
         
     
-        var popup_738ebc9c718de194c8d58024a3a2e4ce = L.popup({
+        var popup_1478d91b874aabcfa6f6f4fb077c276c = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_c80e850e46c4f79f476ce3320d02d53f = $(`<div id="html_c80e850e46c4f79f476ce3320d02d53f" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1670<br><b>1:00</b>: Vehicles: 1544<br><b>2:00</b>: Vehicles: 1467<br><b>3:00</b>: Vehicles: 1532<br><b>4:00</b>: Vehicles: 1666<br><b>5:00</b>: Vehicles: 1887<br><b>6:00</b>: Vehicles: 2259<br><b>7:00</b>: Vehicles: 2555<br><b>8:00</b>: Vehicles: 2960<br><b>9:00</b>: Vehicles: 3309<br><b>10:00</b>: Vehicles: 3651<br><b>11:00</b>: Vehicles: 3995<br><b>12:00</b>: Vehicles: 4269<br><b>13:00</b>: Vehicles: 4364<br><b>14:00</b>: Vehicles: 4419<br><b>15:00</b>: Vehicles: 4320<br><b>16:00</b>: Vehicles: 4222<br><b>17:00</b>: Vehicles: 3923<br><b>18:00</b>: Vehicles: 3673<br><b>19:00</b>: Vehicles: 3338<br><b>20:00</b>: Vehicles: 2940<br><b>21:00</b>: Vehicles: 2581<br><b>22:00</b>: Vehicles: 2221<br><b>23:00</b>: Vehicles: 1903<br></div>`)[0];
-                popup_738ebc9c718de194c8d58024a3a2e4ce.setContent(html_c80e850e46c4f79f476ce3320d02d53f);
+                var html_baf0bbc602038e18a4d07ba0bb919177 = $(`<div id="html_baf0bbc602038e18a4d07ba0bb919177" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Bodø<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 8570<br>             <b>Delay:</b> 8 minutes         </div>`)[0];
+                popup_1478d91b874aabcfa6f6f4fb077c276c.setContent(html_baf0bbc602038e18a4d07ba0bb919177);
             
         
 
-        marker_c2846e07eb8cb1f51b4af97c9d988376.bindPopup(popup_738ebc9c718de194c8d58024a3a2e4ce)
+        marker_8e01c80d175522af35c19c143c2a0fdf.bindPopup(popup_1478d91b874aabcfa6f6f4fb077c276c)
         ;
 
         
     
     
-            var marker_7b8db4e60a8938ba08beea53a9b0d219 = L.marker(
+            var marker_2c5edd12b572e9a8699c4ceb572db20e = L.marker(
                 [58.4615, 8.772],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_fd2fa8901f1a9f0757edbb6c74fe6156 = L.AwesomeMarkers.icon(
+            var icon_846060d8ba8f4dceaa0c06cb512427ef = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_7b8db4e60a8938ba08beea53a9b0d219.setIcon(icon_fd2fa8901f1a9f0757edbb6c74fe6156);
+            marker_2c5edd12b572e9a8699c4ceb572db20e.setIcon(icon_846060d8ba8f4dceaa0c06cb512427ef);
         
     
-        var popup_2c186786df6aaad6da121947bd298a12 = L.popup({
+        var popup_ef87aad6468aefdca05863199e130857 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_d1d727ed57ebbffe4503044b54d31f24 = $(`<div id="html_d1d727ed57ebbffe4503044b54d31f24" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 2667<br><b>1:00</b>: Vehicles: 2389<br><b>2:00</b>: Vehicles: 2308<br><b>3:00</b>: Vehicles: 2377<br><b>4:00</b>: Vehicles: 2626<br><b>5:00</b>: Vehicles: 2930<br><b>6:00</b>: Vehicles: 3494<br><b>7:00</b>: Vehicles: 4043<br><b>8:00</b>: Vehicles: 4651<br><b>9:00</b>: Vehicles: 5233<br><b>10:00</b>: Vehicles: 5787<br><b>11:00</b>: Vehicles: 6289<br><b>12:00</b>: Vehicles: 6693<br><b>13:00</b>: Vehicles: 6857<br><b>14:00</b>: Vehicles: 6948<br><b>15:00</b>: Vehicles: 6853<br><b>16:00</b>: Vehicles: 6653<br><b>17:00</b>: Vehicles: 6274<br><b>18:00</b>: Vehicles: 5797<br><b>19:00</b>: Vehicles: 5215<br><b>20:00</b>: Vehicles: 4612<br><b>21:00</b>: Vehicles: 4072<br><b>22:00</b>: Vehicles: 3467<br><b>23:00</b>: Vehicles: 3002<br></div>`)[0];
-                popup_2c186786df6aaad6da121947bd298a12.setContent(html_d1d727ed57ebbffe4503044b54d31f24);
+                var html_45369c13531790eb9415896ca1a0df6f = $(`<div id="html_45369c13531790eb9415896ca1a0df6f" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Arendal<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> rainy<br>             <b>Vehicles:</b> 6372<br>             <b>Delay:</b> 6 minutes         </div>`)[0];
+                popup_ef87aad6468aefdca05863199e130857.setContent(html_45369c13531790eb9415896ca1a0df6f);
             
         
 
-        marker_7b8db4e60a8938ba08beea53a9b0d219.bindPopup(popup_2c186786df6aaad6da121947bd298a12)
+        marker_2c5edd12b572e9a8699c4ceb572db20e.bindPopup(popup_ef87aad6468aefdca05863199e130857)
         ;
 
         
     
     
-            var marker_0572231fe36561f9782843dab6694f40 = L.marker(
+            var marker_6f0380c6c181b93d00ef3fe05c443083 = L.marker(
                 [60.7945, 11.067],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_946655b84858c2a692e9331ce3a4c937 = L.AwesomeMarkers.icon(
+            var icon_e2266d83828028a7a1582bc6e0205b3e = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_0572231fe36561f9782843dab6694f40.setIcon(icon_946655b84858c2a692e9331ce3a4c937);
+            marker_6f0380c6c181b93d00ef3fe05c443083.setIcon(icon_e2266d83828028a7a1582bc6e0205b3e);
         
     
-        var popup_e753ea3d3062138b02f3fc2d9df4b9a9 = L.popup({
+        var popup_e014027d129804c1be8ed9ff1375940a = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_a1c14ffa1ad50784025c18b10f0d6c6d = $(`<div id="html_a1c14ffa1ad50784025c18b10f0d6c6d" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 792<br><b>1:00</b>: Vehicles: 717<br><b>2:00</b>: Vehicles: 667<br><b>3:00</b>: Vehicles: 805<br><b>4:00</b>: Vehicles: 801<br><b>5:00</b>: Vehicles: 917<br><b>6:00</b>: Vehicles: 1064<br><b>7:00</b>: Vehicles: 1262<br><b>8:00</b>: Vehicles: 1441<br><b>9:00</b>: Vehicles: 1615<br><b>10:00</b>: Vehicles: 1809<br><b>11:00</b>: Vehicles: 1955<br><b>12:00</b>: Vehicles: 2070<br><b>13:00</b>: Vehicles: 2129<br><b>14:00</b>: Vehicles: 2217<br><b>15:00</b>: Vehicles: 2128<br><b>16:00</b>: Vehicles: 2031<br><b>17:00</b>: Vehicles: 1890<br><b>18:00</b>: Vehicles: 1761<br><b>19:00</b>: Vehicles: 1624<br><b>20:00</b>: Vehicles: 1536<br><b>21:00</b>: Vehicles: 1258<br><b>22:00</b>: Vehicles: 1087<br><b>23:00</b>: Vehicles: 918<br></div>`)[0];
-                popup_e753ea3d3062138b02f3fc2d9df4b9a9.setContent(html_a1c14ffa1ad50784025c18b10f0d6c6d);
+                var html_29a9082bbee04d60f4207804f99cb123 = $(`<div id="html_29a9082bbee04d60f4207804f99cb123" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Hamar<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> foggy<br>             <b>Vehicles:</b> 5254<br>             <b>Delay:</b> 5 minutes         </div>`)[0];
+                popup_e014027d129804c1be8ed9ff1375940a.setContent(html_29a9082bbee04d60f4207804f99cb123);
             
         
 
-        marker_0572231fe36561f9782843dab6694f40.bindPopup(popup_e753ea3d3062138b02f3fc2d9df4b9a9)
+        marker_6f0380c6c181b93d00ef3fe05c443083.bindPopup(popup_e014027d129804c1be8ed9ff1375940a)
         ;
 
         
     
     
-            var marker_d492633685f413e23f4f2665cdd6560e = L.marker(
+            var marker_00267797a72f5ac2b05a5b6e6d59f6cc = L.marker(
                 [59.12, 11.3875],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_89adeb7a55cf1f380f2e5368ce373976 = L.AwesomeMarkers.icon(
+            var icon_45479f5cc044e32a99f04af74e192397 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_d492633685f413e23f4f2665cdd6560e.setIcon(icon_89adeb7a55cf1f380f2e5368ce373976);
+            marker_00267797a72f5ac2b05a5b6e6d59f6cc.setIcon(icon_45479f5cc044e32a99f04af74e192397);
         
     
-        var popup_740c69484dd63d443c0388a999410642 = L.popup({
+        var popup_863a1a7b1009945dbb637b4d751cfec5 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_e13b78ff9b939bed7db2aa34c3f5396f = $(`<div id="html_e13b78ff9b939bed7db2aa34c3f5396f" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1132<br><b>1:00</b>: Vehicles: 1004<br><b>2:00</b>: Vehicles: 1018<br><b>3:00</b>: Vehicles: 1046<br><b>4:00</b>: Vehicles: 1175<br><b>5:00</b>: Vehicles: 1318<br><b>6:00</b>: Vehicles: 1512<br><b>7:00</b>: Vehicles: 1784<br><b>8:00</b>: Vehicles: 2022<br><b>9:00</b>: Vehicles: 2321<br><b>10:00</b>: Vehicles: 2555<br><b>11:00</b>: Vehicles: 2631<br><b>12:00</b>: Vehicles: 2913<br><b>13:00</b>: Vehicles: 3059<br><b>14:00</b>: Vehicles: 3063<br><b>15:00</b>: Vehicles: 3027<br><b>16:00</b>: Vehicles: 2839<br><b>17:00</b>: Vehicles: 2718<br><b>18:00</b>: Vehicles: 2588<br><b>19:00</b>: Vehicles: 2296<br><b>20:00</b>: Vehicles: 2032<br><b>21:00</b>: Vehicles: 1766<br><b>22:00</b>: Vehicles: 1454<br><b>23:00</b>: Vehicles: 1275<br></div>`)[0];
-                popup_740c69484dd63d443c0388a999410642.setContent(html_e13b78ff9b939bed7db2aa34c3f5396f);
+                var html_d08ffabf8d84512171329e643293cbaa = $(`<div id="html_d08ffabf8d84512171329e643293cbaa" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Halden<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> foggy<br>             <b>Vehicles:</b> 8371<br>             <b>Delay:</b> 8 minutes         </div>`)[0];
+                popup_863a1a7b1009945dbb637b4d751cfec5.setContent(html_d08ffabf8d84512171329e643293cbaa);
             
         
 
-        marker_d492633685f413e23f4f2665cdd6560e.bindPopup(popup_740c69484dd63d443c0388a999410642)
+        marker_00267797a72f5ac2b05a5b6e6d59f6cc.bindPopup(popup_863a1a7b1009945dbb637b4d751cfec5)
         ;
 
         
     
     
-            var marker_8bdae4a985f48ea4dca11d67d2408e92 = L.marker(
+            var marker_0ab0afcf4b12b80a10e212d64552ed45 = L.marker(
                 [68.4385, 17.4272],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_34c0095c15ca1118306bf4a60685bb9f = L.AwesomeMarkers.icon(
+            var icon_80102c8e83e04ea4495b5e6f6100f7d3 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_8bdae4a985f48ea4dca11d67d2408e92.setIcon(icon_34c0095c15ca1118306bf4a60685bb9f);
+            marker_0ab0afcf4b12b80a10e212d64552ed45.setIcon(icon_80102c8e83e04ea4495b5e6f6100f7d3);
         
     
-        var popup_668b865665ad805790d91468e8fc4781 = L.popup({
+        var popup_b0ad027d0e6e6faff990f00aac825dd4 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_d2fe005e8a5ef2e175e6a97d9cf786c9 = $(`<div id="html_d2fe005e8a5ef2e175e6a97d9cf786c9" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 510<br><b>1:00</b>: Vehicles: 428<br><b>2:00</b>: Vehicles: 440<br><b>3:00</b>: Vehicles: 472<br><b>4:00</b>: Vehicles: 581<br><b>5:00</b>: Vehicles: 601<br><b>6:00</b>: Vehicles: 673<br><b>7:00</b>: Vehicles: 800<br><b>8:00</b>: Vehicles: 910<br><b>9:00</b>: Vehicles: 1082<br><b>10:00</b>: Vehicles: 1125<br><b>11:00</b>: Vehicles: 1237<br><b>12:00</b>: Vehicles: 1309<br><b>13:00</b>: Vehicles: 1405<br><b>14:00</b>: Vehicles: 1375<br><b>15:00</b>: Vehicles: 1335<br><b>16:00</b>: Vehicles: 1316<br><b>17:00</b>: Vehicles: 1161<br><b>18:00</b>: Vehicles: 1196<br><b>19:00</b>: Vehicles: 1008<br><b>20:00</b>: Vehicles: 945<br><b>21:00</b>: Vehicles: 769<br><b>22:00</b>: Vehicles: 676<br><b>23:00</b>: Vehicles: 572<br></div>`)[0];
-                popup_668b865665ad805790d91468e8fc4781.setContent(html_d2fe005e8a5ef2e175e6a97d9cf786c9);
+                var html_f18888974ba7a1cb934121729016a3bf = $(`<div id="html_f18888974ba7a1cb934121729016a3bf" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Narvik<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> rainy<br>             <b>Vehicles:</b> 8811<br>             <b>Delay:</b> 8 minutes         </div>`)[0];
+                popup_b0ad027d0e6e6faff990f00aac825dd4.setContent(html_f18888974ba7a1cb934121729016a3bf);
             
         
 
-        marker_8bdae4a985f48ea4dca11d67d2408e92.bindPopup(popup_668b865665ad805790d91468e8fc4781)
+        marker_0ab0afcf4b12b80a10e212d64552ed45.bindPopup(popup_b0ad027d0e6e6faff990f00aac825dd4)
         ;
 
         
     
     
-            var marker_368cb2c02ecc191fbb472fcf99152274 = L.marker(
+            var marker_32e2a31e97a051fd12a2804d0280a9bc = L.marker(
                 [60.7959, 10.6917],
                 {
 }
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
+            ).addTo(map_6bc7466483f9bafcf5aaa46e4d41f8bf);
         
     
-            var icon_c17aa2a3ae72f7411b88a61134fc42bd = L.AwesomeMarkers.icon(
+            var icon_d095e4460565ab3341e91325deeef15a = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "blue",
+  "markerColor": "red",
   "iconColor": "white",
-  "icon": "info-sign",
-  "prefix": "glyphicon",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
   "extraClasses": "fa-rotate-0",
 }
             );
-            marker_368cb2c02ecc191fbb472fcf99152274.setIcon(icon_c17aa2a3ae72f7411b88a61134fc42bd);
+            marker_32e2a31e97a051fd12a2804d0280a9bc.setIcon(icon_d095e4460565ab3341e91325deeef15a);
         
     
-        var popup_720c6c9448a48314ed3c3136b83cd2f8 = L.popup({
+        var popup_20da8b8e5c2f8a716f52a13e55ce9699 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_1805cd23a25f258bc28d59d6d02f2050 = $(`<div id="html_1805cd23a25f258bc28d59d6d02f2050" style="width: 100.0%; height: 100.0%;"><b>Traffic Information</b><br><b>0:00</b>: Vehicles: 1441<br><b>1:00</b>: Vehicles: 1322<br><b>2:00</b>: Vehicles: 1205<br><b>3:00</b>: Vehicles: 1292<br><b>4:00</b>: Vehicles: 1477<br><b>5:00</b>: Vehicles: 1632<br><b>6:00</b>: Vehicles: 1879<br><b>7:00</b>: Vehicles: 2215<br><b>8:00</b>: Vehicles: 2536<br><b>9:00</b>: Vehicles: 2871<br><b>10:00</b>: Vehicles: 3200<br><b>11:00</b>: Vehicles: 3451<br><b>12:00</b>: Vehicles: 3617<br><b>13:00</b>: Vehicles: 3805<br><b>14:00</b>: Vehicles: 3853<br><b>15:00</b>: Vehicles: 3770<br><b>16:00</b>: Vehicles: 3646<br><b>17:00</b>: Vehicles: 3454<br><b>18:00</b>: Vehicles: 3167<br><b>19:00</b>: Vehicles: 2897<br><b>20:00</b>: Vehicles: 2562<br><b>21:00</b>: Vehicles: 2200<br><b>22:00</b>: Vehicles: 1918<br><b>23:00</b>: Vehicles: 1664<br></div>`)[0];
-                popup_720c6c9448a48314ed3c3136b83cd2f8.setContent(html_1805cd23a25f258bc28d59d6d02f2050);
+                var html_1c091f9ce45cb71d5fe5fc2ff5713126 = $(`<div id="html_1c091f9ce45cb71d5fe5fc2ff5713126" style="width: 100.0%; height: 100.0%;">             <b>Region:</b> Gjøvik<br>             <b>Accident Reported!</b><br>             <b>Time:</b> 21:00<br>             <b>Weather:</b> clear<br>             <b>Vehicles:</b> 3391<br>             <b>Delay:</b> 3 minutes         </div>`)[0];
+                popup_20da8b8e5c2f8a716f52a13e55ce9699.setContent(html_1c091f9ce45cb71d5fe5fc2ff5713126);
             
         
 
-        marker_368cb2c02ecc191fbb472fcf99152274.bindPopup(popup_720c6c9448a48314ed3c3136b83cd2f8)
+        marker_32e2a31e97a051fd12a2804d0280a9bc.bindPopup(popup_20da8b8e5c2f8a716f52a13e55ce9699)
         ;
 
         
     
-    
-            var marker_9923595d8411356459b74aefe7c9f0d9 = L.marker(
-                [67.2804, 14.4049],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_eee159cdd1f466c5200780aa7e69662d = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_9923595d8411356459b74aefe7c9f0d9.setIcon(icon_eee159cdd1f466c5200780aa7e69662d);
-        
-    
-        var popup_a32de84d8515259d6654317572225837 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_eb2d5eff283cd62ca8f1ff4941e1a8c8 = $(`<div id="html_eb2d5eff283cd62ca8f1ff4941e1a8c8" style="width: 100.0%; height: 100.0%;">Accident in Bodø during rainy weather</div>`)[0];
-                popup_a32de84d8515259d6654317572225837.setContent(html_eb2d5eff283cd62ca8f1ff4941e1a8c8);
-            
-        
-
-        marker_9923595d8411356459b74aefe7c9f0d9.bindPopup(popup_a32de84d8515259d6654317572225837)
-        ;
-
-        
-    
-    
-            var marker_3d8e7e0307bed865e8619d916d93e0b5 = L.marker(
-                [59.9139, 10.7522],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_cd6339dc35254f2312c1ba02de9a28d0 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_3d8e7e0307bed865e8619d916d93e0b5.setIcon(icon_cd6339dc35254f2312c1ba02de9a28d0);
-        
-    
-        var popup_a5067b58a1b0085e23f6f702fe62cbe8 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_59d7dbfc6c758e2a5b723751b18ab0c8 = $(`<div id="html_59d7dbfc6c758e2a5b723751b18ab0c8" style="width: 100.0%; height: 100.0%;">Accident in Oslo during snowy weather</div>`)[0];
-                popup_a5067b58a1b0085e23f6f702fe62cbe8.setContent(html_59d7dbfc6c758e2a5b723751b18ab0c8);
-            
-        
-
-        marker_3d8e7e0307bed865e8619d916d93e0b5.bindPopup(popup_a5067b58a1b0085e23f6f702fe62cbe8)
-        ;
-
-        
-    
-    
-            var marker_9b11aa02db46191bb7eb03a3b4b4a94c = L.marker(
-                [59.4138, 5.268],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_ce31d16f562b28e7890c288c2cd54c7e = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_9b11aa02db46191bb7eb03a3b4b4a94c.setIcon(icon_ce31d16f562b28e7890c288c2cd54c7e);
-        
-    
-        var popup_cf94706cb565d2429d650418b7420073 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_0473885e026f1e9b850f8b3b7228ba58 = $(`<div id="html_0473885e026f1e9b850f8b3b7228ba58" style="width: 100.0%; height: 100.0%;">Accident in Haugesund during rainy weather</div>`)[0];
-                popup_cf94706cb565d2429d650418b7420073.setContent(html_0473885e026f1e9b850f8b3b7228ba58);
-            
-        
-
-        marker_9b11aa02db46191bb7eb03a3b4b4a94c.bindPopup(popup_cf94706cb565d2429d650418b7420073)
-        ;
-
-        
-    
-    
-            var marker_9cf0d0aeabb9c16f8026c26fa84287f0 = L.marker(
-                [68.4385, 17.4272],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_ff0807b3d3f3006d86aa83828a0f1a99 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_9cf0d0aeabb9c16f8026c26fa84287f0.setIcon(icon_ff0807b3d3f3006d86aa83828a0f1a99);
-        
-    
-        var popup_1cbc38f394f38f881c11463aa7baceaf = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_29c3284c6b5b58e060ba728533fc2628 = $(`<div id="html_29c3284c6b5b58e060ba728533fc2628" style="width: 100.0%; height: 100.0%;">Accident in Narvik during snowy weather</div>`)[0];
-                popup_1cbc38f394f38f881c11463aa7baceaf.setContent(html_29c3284c6b5b58e060ba728533fc2628);
-            
-        
-
-        marker_9cf0d0aeabb9c16f8026c26fa84287f0.bindPopup(popup_1cbc38f394f38f881c11463aa7baceaf)
-        ;
-
-        
-    
-    
-            var marker_0865c5762b05dd9a59eea0527dd00ca2 = L.marker(
-                [59.2675, 10.4076],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_b04ed876246f60bd59291789959ba652 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_0865c5762b05dd9a59eea0527dd00ca2.setIcon(icon_b04ed876246f60bd59291789959ba652);
-        
-    
-        var popup_ffb03edbc911b57c9da288136e3e1506 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_882944a086359fbd1db7c8f7e47e7e87 = $(`<div id="html_882944a086359fbd1db7c8f7e47e7e87" style="width: 100.0%; height: 100.0%;">Accident in Tønsberg during snowy weather</div>`)[0];
-                popup_ffb03edbc911b57c9da288136e3e1506.setContent(html_882944a086359fbd1db7c8f7e47e7e87);
-            
-        
-
-        marker_0865c5762b05dd9a59eea0527dd00ca2.bindPopup(popup_ffb03edbc911b57c9da288136e3e1506)
-        ;
-
-        
-    
-    
-            var marker_53313b78990f6ea68bb2dc53b0acd07d = L.marker(
-                [59.2675, 10.4076],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_582d3c5f09824dced83f324f5362ffca = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_53313b78990f6ea68bb2dc53b0acd07d.setIcon(icon_582d3c5f09824dced83f324f5362ffca);
-        
-    
-        var popup_4c150101270b248abb038fd5b8e5cbdf = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_47a46641883d3f476f67070b2edcc8be = $(`<div id="html_47a46641883d3f476f67070b2edcc8be" style="width: 100.0%; height: 100.0%;">Accident in Tønsberg during snowy weather</div>`)[0];
-                popup_4c150101270b248abb038fd5b8e5cbdf.setContent(html_47a46641883d3f476f67070b2edcc8be);
-            
-        
-
-        marker_53313b78990f6ea68bb2dc53b0acd07d.bindPopup(popup_4c150101270b248abb038fd5b8e5cbdf)
-        ;
-
-        
-    
-    
-            var marker_772190423631d4ead7211902fcb5e459 = L.marker(
-                [60.7945, 11.067],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_cede99e23fa2016fb8fa311f493a3b18 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_772190423631d4ead7211902fcb5e459.setIcon(icon_cede99e23fa2016fb8fa311f493a3b18);
-        
-    
-        var popup_307275dc720f8227bbd49422773dab87 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_5e9d87d73945ddd01f0e87219214e9a8 = $(`<div id="html_5e9d87d73945ddd01f0e87219214e9a8" style="width: 100.0%; height: 100.0%;">Accident in Hamar during rainy weather</div>`)[0];
-                popup_307275dc720f8227bbd49422773dab87.setContent(html_5e9d87d73945ddd01f0e87219214e9a8);
-            
-        
-
-        marker_772190423631d4ead7211902fcb5e459.bindPopup(popup_307275dc720f8227bbd49422773dab87)
-        ;
-
-        
-    
-    
-            var marker_5fddb860af65a64bb3734900b54b7fcb = L.marker(
-                [58.8524, 5.7352],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_c5acbe8cdb2d4c2d8eb734d51ec28ccb = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_5fddb860af65a64bb3734900b54b7fcb.setIcon(icon_c5acbe8cdb2d4c2d8eb734d51ec28ccb);
-        
-    
-        var popup_5345976d6ff70e977d9a8a0ccfe3d0b7 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_3448f21f0100cae9a86c7303151e3606 = $(`<div id="html_3448f21f0100cae9a86c7303151e3606" style="width: 100.0%; height: 100.0%;">Accident in Sandnes during snowy weather</div>`)[0];
-                popup_5345976d6ff70e977d9a8a0ccfe3d0b7.setContent(html_3448f21f0100cae9a86c7303151e3606);
-            
-        
-
-        marker_5fddb860af65a64bb3734900b54b7fcb.bindPopup(popup_5345976d6ff70e977d9a8a0ccfe3d0b7)
-        ;
-
-        
-    
-    
-            var marker_2cbeff2911299389f4808f930e4c57f8 = L.marker(
-                [59.12, 11.3875],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_5792f58ff0b34b1df421e3dfd7fa29eb = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_2cbeff2911299389f4808f930e4c57f8.setIcon(icon_5792f58ff0b34b1df421e3dfd7fa29eb);
-        
-    
-        var popup_0d7faee4d334bc6efe83d953f3533a1c = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_242a9d4c7e8da6fa6b33f95292cf7543 = $(`<div id="html_242a9d4c7e8da6fa6b33f95292cf7543" style="width: 100.0%; height: 100.0%;">Accident in Halden during rainy weather</div>`)[0];
-                popup_0d7faee4d334bc6efe83d953f3533a1c.setContent(html_242a9d4c7e8da6fa6b33f95292cf7543);
-            
-        
-
-        marker_2cbeff2911299389f4808f930e4c57f8.bindPopup(popup_0d7faee4d334bc6efe83d953f3533a1c)
-        ;
-
-        
-    
-    
-            var marker_8d8e0268784dc7472f107c87ff36b3c5 = L.marker(
-                [60.7959, 10.6917],
-                {
-}
-            ).addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
-    
-            var icon_1bc8de7a6a09598398f33207d18dff4a = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "exclamation-triangle",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-            marker_8d8e0268784dc7472f107c87ff36b3c5.setIcon(icon_1bc8de7a6a09598398f33207d18dff4a);
-        
-    
-        var popup_5fd8ed02e6ab52d4edf5c23f2dddcf84 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_70b214e5f137bfcaba4cd409df17d486 = $(`<div id="html_70b214e5f137bfcaba4cd409df17d486" style="width: 100.0%; height: 100.0%;">Accident in Gjøvik during foggy weather</div>`)[0];
-                popup_5fd8ed02e6ab52d4edf5c23f2dddcf84.setContent(html_70b214e5f137bfcaba4cd409df17d486);
-            
-        
-
-        marker_8d8e0268784dc7472f107c87ff36b3c5.bindPopup(popup_5fd8ed02e6ab52d4edf5c23f2dddcf84)
-        ;
-
-        
-    
-    
-
-            var times = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-
-            map_9c6f8ae87247a8d7888f96019543e1b7.timeDimension = L.timeDimension(
-                {times : times, currentTime: new Date(1)}
-            );
-
-            var heat_map_11f70c000c10847d1273f0085002a5e0Control = new L.Control.TimeDimensionCustom(['0:00 | Total Vehicles: 27513', '1:00 | Total Vehicles: 25085', '2:00 | Total Vehicles: 24267', '3:00 | Total Vehicles: 25085', '4:00 | Total Vehicles: 27513', '5:00 | Total Vehicles: 31369', '6:00 | Total Vehicles: 36399', '7:00 | Total Vehicles: 42247', '8:00 | Total Vehicles: 48539', '9:00 | Total Vehicles: 54811', '10:00 | Total Vehicles: 60668', '11:00 | Total Vehicles: 65689', '12:00 | Total Vehicles: 69545', '13:00 | Total Vehicles: 71973', '14:00 | Total Vehicles: 72806', '15:00 | Total Vehicles: 71973', '16:00 | Total Vehicles: 69545', '17:00 | Total Vehicles: 65689', '18:00 | Total Vehicles: 60668', '19:00 | Total Vehicles: 54811', '20:00 | Total Vehicles: 48539', '21:00 | Total Vehicles: 42247', '22:00 | Total Vehicles: 36399', '23:00 | Total Vehicles: 31369'], {
-                autoPlay: true,
-                backwardButton: true,
-                displayDate: true,
-                forwardButton: true,
-                limitMinimumRange: 5,
-                limitSliders: true,
-                loopButton: true,
-                maxSpeed: 10,
-                minSpeed: 0.1,
-                playButton: true,
-                playReverseButton: true,
-                position: "bottomleft",
-                speedSlider: true,
-                speedStep: 0.1,
-                styleNS: "leaflet-control-timecontrol",
-                timeSlider: true,
-                timeSliderDragUpdate: false,
-                timeSteps: 1
-                })
-                .addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-
-                var heat_map_11f70c000c10847d1273f0085002a5e0 = new TDHeatmap([[[59.9139, 10.7522, 2567.334205180515], [60.3928, 5.3239, 1826.7143643618042], [63.4305, 10.3951, 1854.3302414407374], [58.969, 5.7331, 2546.791595955185], [58.1467, 7.9956, 2729.863598519982], [69.6496, 18.956, 939.4913815684439], [58.8524, 5.7352, 1018.2257384632356], [59.7439, 10.2045, 935.9733572297653], [59.2181, 10.9298, 2468.715261303551], [59.139, 9.6561, 391.54881027494037], [62.4722, 6.1549, 1577.015557819788], [59.4138, 5.268, 2145.5430811699052], [59.2675, 10.4076, 2507.149319639677], [59.434, 10.6577, 1610.2691380328743], [67.2804, 14.4049, 1670.3061533714958], [58.4615, 8.772, 2667.8918336427996], [60.7945, 11.067, 792.9096687220738], [59.12, 11.3875, 1132.9877237084143], [68.4385, 17.4272, 510.8201844571224], [60.7959, 10.6917, 1441.215497127549]], [[59.9139, 10.7522, 2368.383372839597], [60.3928, 5.3239, 1662.367825543506], [63.4305, 10.3951, 1745.0734718839228], [58.969, 5.7331, 2358.3925084395264], [58.1467, 7.9956, 2441.0830676929877], [69.6496, 18.956, 846.4622052264253], [58.8524, 5.7352, 885.5784061346159], [59.7439, 10.2045, 926.0783321921382], [59.2181, 10.9298, 2279.1903049674934], [59.139, 9.6561, 309.8896658065836], [62.4722, 6.1549, 1450.2877895349557], [59.4138, 5.268, 1913.1955271575184], [59.2675, 10.4076, 2277.58228681569], [59.434, 10.6577, 1439.410896809396], [67.2804, 14.4049, 1544.5448162199627], [58.4615, 8.772, 2389.934944521436], [60.7945, 11.067, 717.6777434971712], [59.12, 11.3875, 1004.5739646385207], [68.4385, 17.4272, 428.2911211886948], [60.7959, 10.6917, 1322.4366484647098]], [[59.9139, 10.7522, 2277.725662392479], [60.3928, 5.3239, 1614.7025100979881], [63.4305, 10.3951, 1621.4247086375526], [58.969, 5.7331, 2255.8774609619295], [58.1467, 7.9956, 2406.052170049021], [69.6496, 18.956, 832.0099528308301], [58.8524, 5.7352, 841.1325109540466], [59.7439, 10.2045, 915.59706844475], [59.2181, 10.9298, 2178.8699138585075], [59.139, 9.6561, 345.13187344868527], [62.4722, 6.1549, 1427.6989613520561], [59.4138, 5.268, 1865.4206548560733], [59.2675, 10.4076, 2232.491930222081], [59.434, 10.6577, 1366.032301037187], [67.2804, 14.4049, 1467.5640244996353], [58.4615, 8.772, 2308.4150116319897], [60.7945, 11.067, 667.9996447907562], [59.12, 11.3875, 1018.9737757702009], [68.4385, 17.4272, 440.18829313748915], [60.7959, 10.6917, 1205.3705094311047]], [[59.9139, 10.7522, 2373.5559459573456], [60.3928, 5.3239, 1634.1548737837204], [63.4305, 10.3951, 1710.6879267839354], [58.969, 5.7331, 2320.975396756224], [58.1467, 7.9956, 2456.2118261305873], [69.6496, 18.956, 867.3853713392931], [58.8524, 5.7352, 876.5856336548532], [59.7439, 10.2045, 884.2132142467003], [59.2181, 10.9298, 2221.3003064081054], [59.139, 9.6561, 336.2592387790975], [62.4722, 6.1549, 1444.512295553046], [59.4138, 5.268, 1947.1718007280201], [59.2675, 10.4076, 2329.3464834687234], [59.434, 10.6577, 1457.0802177383641], [67.2804, 14.4049, 1532.6421923556306], [58.4615, 8.772, 2377.6775505756023], [60.7945, 11.067, 805.841514691983], [59.12, 11.3875, 1046.2656705690654], [68.4385, 17.4272, 472.35085296323507], [60.7959, 10.6917, 1292.1572354989028]], [[59.9139, 10.7522, 2566.6459254861306], [60.3928, 5.3239, 1815.8418424410613], [63.4305, 10.3951, 1783.4500136972824], [58.969, 5.7331, 2552.711693831688], [58.1467, 7.9956, 2719.945471652249], [69.6496, 18.956, 1001.6748593402928], [58.8524, 5.7352, 991.9635704905194], [59.7439, 10.2045, 993.7701416176589], [59.2181, 10.9298, 2441.8435884184933], [59.139, 9.6561, 384.65502567539147], [62.4722, 6.1549, 1612.9996578822913], [59.4138, 5.268, 2147.301727634343], [59.2675, 10.4076, 2499.1888905527553], [59.434, 10.6577, 1600.1875788629675], [67.2804, 14.4049, 1666.2624274234458], [58.4615, 8.772, 2626.3731172889225], [60.7945, 11.067, 801.7802219668972], [59.12, 11.3875, 1175.3951164367966], [68.4385, 17.4272, 581.0534643003549], [60.7959, 10.6917, 1477.1135364308395]], [[59.9139, 10.7522, 2939.0229110904475], [60.3928, 5.3239, 2093.201751741332], [63.4305, 10.3951, 2149.7830178141758], [58.969, 5.7331, 2911.5911830654504], [58.1467, 7.9956, 3085.39928723631], [69.6496, 18.956, 1154.149150546606], [58.8524, 5.7352, 1113.05773521652], [59.7439, 10.2045, 1110.1349769379465], [59.2181, 10.9298, 2787.0874730761093], [59.139, 9.6561, 446.6990192921095], [62.4722, 6.1549, 1883.6725998855468], [59.4138, 5.268, 2471.322034277459], [59.2675, 10.4076, 2898.187232397008], [59.434, 10.6577, 1833.0361956718386], [67.2804, 14.4049, 1887.6025809829014], [58.4615, 8.772, 2930.5381377182816], [60.7945, 11.067, 917.0367794772249], [59.12, 11.3875, 1318.4802233648222], [68.4385, 17.4272, 601.8095564345094], [60.7959, 10.6917, 1632.6362184860188]], [[59.9139, 10.7522, 3451.2207936995324], [60.3928, 5.3239, 2404.026850142136], [63.4305, 10.3951, 2464.3567430566795], [58.969, 5.7331, 3317.0166544645035], [58.1467, 7.9956, 3586.685933879941], [69.6496, 18.956, 1251.8423173749882], [58.8524, 5.7352, 1273.4305136541695], [59.7439, 10.2045, 1341.5688260871425], [59.2181, 10.9298, 3211.6667269335057], [59.139, 9.6561, 503.5773735623391], [62.4722, 6.1549, 2097.9476631156863], [59.4138, 5.268, 2813.9539740508817], [59.2675, 10.4076, 3308.6425598153332], [59.434, 10.6577, 2109.990583084404], [67.2804, 14.4049, 2259.411076622573], [58.4615, 8.772, 3494.128929875875], [60.7945, 11.067, 1064.9875546451829], [59.12, 11.3875, 1512.1644227207614], [68.4385, 17.4272, 673.152374828648], [60.7959, 10.6917, 1879.4501643181504]], [[59.9139, 10.7522, 3970.053659277744], [60.3928, 5.3239, 2845.9829593971413], [63.4305, 10.3951, 2883.188494853549], [58.969, 5.7331, 3864.948264060677], [58.1467, 7.9956, 4167.468483600564], [69.6496, 18.956, 1472.3296351856777], [58.8524, 5.7352, 1482.4664982078816], [59.7439, 10.2045, 1486.6138569273353], [59.2181, 10.9298, 3747.6809745265878], [59.139, 9.6561, 663.822751494424], [62.4722, 6.1549, 2460.7843461167504], [59.4138, 5.268, 3254.8376320404977], [59.2675, 10.4076, 3821.652353037894], [59.434, 10.6577, 2443.9291266569035], [67.2804, 14.4049, 2555.5351254732686], [58.4615, 8.772, 4043.667876015255], [60.7945, 11.067, 1262.5385012581285], [59.12, 11.3875, 1784.2468150815967], [68.4385, 17.4272, 800.1962773929257], [60.7959, 10.6917, 2215.7529173730854]], [[59.9139, 10.7522, 4560.445083369168], [60.3928, 5.3239, 3242.3249160398054], [63.4305, 10.3951, 3290.6103895570927], [58.969, 5.7331, 4495.700236932546], [58.1467, 7.9956, 4787.757506754493], [69.6496, 18.956, 1688.5519659848303], [58.8524, 5.7352, 1688.7219651184907], [59.7439, 10.2045, 1737.5931372316686], [59.2181, 10.9298, 4332.552992594163], [59.139, 9.6561, 646.3944774973297], [62.4722, 6.1549, 2801.036052166102], [59.4138, 5.268, 3774.27811346414], [59.2675, 10.4076, 4417.183604760587], [59.434, 10.6577, 2801.19400452447], [67.2804, 14.4049, 2960.259483175785], [58.4615, 8.772, 4651.789345243468], [60.7945, 11.067, 1441.1705601620813], [59.12, 11.3875, 2022.8167447029875], [68.4385, 17.4272, 910.7923709007106], [60.7959, 10.6917, 2536.4156926332357]], [[59.9139, 10.7522, 5149.608939014921], [60.3928, 5.3239, 3644.2475707568688], [63.4305, 10.3951, 3779.374982845822], [58.969, 5.7331, 5055.727167020766], [58.1467, 7.9956, 5401.616888016805], [69.6496, 18.956, 1881.1510391853394], [58.8524, 5.7352, 1925.232154373998], [59.7439, 10.2045, 1899.5889169082739], [59.2181, 10.9298, 4936.43404511544], [59.139, 9.6561, 784.9456318665782], [62.4722, 6.1549, 3171.665132552986], [59.4138, 5.268, 4269.321554763387], [59.2675, 10.4076, 4960.646936054234], [59.434, 10.6577, 3173.4618441845046], [67.2804, 14.4049, 3309.272628401184], [58.4615, 8.772, 5233.864926944984], [60.7945, 11.067, 1615.422424477368], [59.12, 11.3875, 2321.8560931858865], [68.4385, 17.4272, 1082.0865751909419], [60.7959, 10.6917, 2871.4658594821776]], [[59.9139, 10.7522, 5708.155360909333], [60.3928, 5.3239, 4014.3597986107166], [63.4305, 10.3951, 4107.344171735491], [58.969, 5.7331, 5604.2864185243425], [58.1467, 7.9956, 5969.579183093202], [69.6496, 18.956, 2079.3252083337115], [58.8524, 5.7352, 2155.8799831640235], [59.7439, 10.2045, 2149.5692593498884], [59.2181, 10.9298, 5409.897674167746], [59.139, 9.6561, 886.4374658178618], [62.4722, 6.1549, 3462.985406724508], [59.4138, 5.268, 4629.920244206747], [59.2675, 10.4076, 5454.0320837745485], [59.434, 10.6577, 3510.9720716168854], [67.2804, 14.4049, 3651.0201600426967], [58.4615, 8.772, 5787.95911408116], [60.7945, 11.067, 1809.4055780473839], [59.12, 11.3875, 2555.1756986859323], [68.4385, 17.4272, 1125.5746283331064], [60.7959, 10.6917, 3200.5549274932437]], [[59.9139, 10.7522, 6202.8360535964175], [60.3928, 5.3239, 4354.093900417304], [63.4305, 10.3951, 4407.401772479054], [58.969, 5.7331, 6095.408826700127], [58.1467, 7.9956, 6513.135956977404], [69.6496, 18.956, 2177.399017216289], [58.8524, 5.7352, 2322.3019906952527], [59.7439, 10.2045, 2346.39783765777], [59.2181, 10.9298, 5971.61346849169], [59.139, 9.6561, 941.0205402393462], [62.4722, 6.1549, 3786.946597762783], [59.4138, 5.268, 5124.73011022553], [59.2675, 10.4076, 5953.8196402087315], [59.434, 10.6577, 3790.916747241441], [67.2804, 14.4049, 3995.0974472192374], [58.4615, 8.772, 6289.4690509743], [60.7945, 11.067, 1955.3526492711862], [59.12, 11.3875, 2631.3115426186055], [68.4385, 17.4272, 1237.8476138137535], [60.7959, 10.6917, 3451.7051260475987]], [[59.9139, 10.7522, 6523.827850157834], [60.3928, 5.3239, 4632.303806780067], [63.4305, 10.3951, 4677.777962574186], [58.969, 5.7331, 6493.398582003884], [58.1467, 7.9956, 6889.494350914404], [69.6496, 18.956, 2410.3584110536704], [58.8524, 5.7352, 2449.2530350897077], [59.7439, 10.2045, 2483.5176271155574], [59.2181, 10.9298, 6205.33402661503], [59.139, 9.6561, 983.2541082903277], [62.4722, 6.1549, 4055.929091139213], [59.4138, 5.268, 5408.6799228449445], [59.2675, 10.4076, 6335.41849033102], [59.434, 10.6577, 4016.501478426496], [67.2804, 14.4049, 4269.445561194395], [58.4615, 8.772, 6693.844966670433], [60.7945, 11.067, 2070.911571289669], [59.12, 11.3875, 2913.328065390407], [68.4385, 17.4272, 1309.462839982224], [60.7959, 10.6917, 3617.0383846285513]], [[59.9139, 10.7522, 6729.759345360745], [60.3928, 5.3239, 4791.6271959319565], [63.4305, 10.3951, 4871.6564670140415], [58.969, 5.7331, 6660.373699958895], [58.1467, 7.9956, 7086.515262723038], [69.6496, 18.956, 2475.0874961887735], [58.8524, 5.7352, 2540.5359349230544], [59.7439, 10.2045, 2579.6316410716117], [59.2181, 10.9298, 6429.202557347853], [59.139, 9.6561, 1006.9025736975742], [62.4722, 6.1549, 4163.569908000383], [59.4138, 5.268, 5613.405895357587], [59.2675, 10.4076, 6542.691997363459], [59.434, 10.6577, 4166.39341886675], [67.2804, 14.4049, 4364.927918437001], [58.4615, 8.772, 6857.384750753524], [60.7945, 11.067, 2129.229511451924], [59.12, 11.3875, 3059.4933150216125], [68.4385, 17.4272, 1405.0746793859203], [60.7959, 10.6917, 3805.0481215533773]], [[59.9139, 10.7522, 6819.742783619192], [60.3928, 5.3239, 4851.615100797897], [63.4305, 10.3951, 4915.246550521525], [58.969, 5.7331, 6780.761707426567], [58.1467, 7.9956, 7172.741192156626], [69.6496, 18.956, 2509.4428453207533], [58.8524, 5.7352, 2565.865416370914], [59.7439, 10.2045, 2599.9566167882326], [59.2181, 10.9298, 6501.590875677448], [59.139, 9.6561, 1022.7886416359926], [62.4722, 6.1549, 4255.925311018589], [59.4138, 5.268, 5671.945572283217], [59.2675, 10.4076, 6596.825207355594], [59.434, 10.6577, 4218.072584030027], [67.2804, 14.4049, 4419.180487144016], [58.4615, 8.772, 6948.73071779213], [60.7945, 11.067, 2217.8026609998005], [59.12, 11.3875, 3063.4494806878265], [68.4385, 17.4272, 1375.024725796883], [60.7959, 10.6917, 3853.147786130172]], [[59.9139, 10.7522, 6711.609610399501], [60.3928, 5.3239, 4813.287254440874], [63.4305, 10.3951, 4918.669043513202], [58.969, 5.7331, 6674.401802591197], [58.1467, 7.9956, 7086.545376018575], [69.6496, 18.956, 2379.376705070258], [58.8524, 5.7352, 2469.649447855722], [59.7439, 10.2045, 2553.5849817990056], [59.2181, 10.9298, 6404.633411412839], [59.139, 9.6561, 1020.2414839404659], [62.4722, 6.1549, 4197.853818330664], [59.4138, 5.268, 5597.549675939866], [59.2675, 10.4076, 6531.529486346476], [59.434, 10.6577, 4205.030400176474], [67.2804, 14.4049, 4320.186186970299], [58.4615, 8.772, 6853.5824636606085], [60.7945, 11.067, 2128.215466319368], [59.12, 11.3875, 3027.4852746572005], [68.4385, 17.4272, 1335.7322876347444], [60.7959, 10.6917, 3770.49187806476]], [[59.9139, 10.7522, 6506.945773978083], [60.3928, 5.3239, 4625.350197986745], [63.4305, 10.3951, 4718.427422315552], [58.969, 5.7331, 6450.612444569849], [58.1467, 7.9956, 6813.012895009785], [69.6496, 18.956, 2408.260935148415], [58.8524, 5.7352, 2433.186660232699], [59.7439, 10.2045, 2433.0980562839873], [59.2181, 10.9298, 6190.586821396266], [59.139, 9.6561, 978.1374456554205], [62.4722, 6.1549, 4036.127374444673], [59.4138, 5.268, 5468.839858874467], [59.2675, 10.4076, 6308.051556723443], [59.434, 10.6577, 4007.242159808195], [67.2804, 14.4049, 4222.136616167624], [58.4615, 8.772, 6653.9523156281775], [60.7945, 11.067, 2031.424510600562], [59.12, 11.3875, 2839.600046435192], [68.4385, 17.4272, 1316.9495021233204], [60.7959, 10.6917, 3646.2141822170056]], [[59.9139, 10.7522, 6155.147023673784], [60.3928, 5.3239, 4352.547900377347], [63.4305, 10.3951, 4477.438949089835], [58.969, 5.7331, 6098.8093503937525], [58.1467, 7.9956, 6421.013752727867], [69.6496, 18.956, 2260.088487897948], [58.8524, 5.7352, 2361.1310210401966], [59.7439, 10.2045, 2354.8668758011677], [59.2181, 10.9298, 5864.016787186268], [59.139, 9.6561, 929.2162928237781], [62.4722, 6.1549, 3775.5232991917883], [59.4138, 5.268, 5107.483045478434], [59.2675, 10.4076, 5943.484763606676], [59.434, 10.6577, 3749.5188950012175], [67.2804, 14.4049, 3923.822853002677], [58.4615, 8.772, 6274.89396760317], [60.7945, 11.067, 1890.5474908071137], [59.12, 11.3875, 2718.0214820879596], [68.4385, 17.4272, 1161.3070406091008], [60.7959, 10.6917, 3454.8196453000633]], [[59.9139, 10.7522, 5703.48569468688], [60.3928, 5.3239, 4104.078909986155], [63.4305, 10.3951, 4154.020314092679], [58.969, 5.7331, 5621.547641195272], [58.1467, 7.9956, 5990.82408854612], [69.6496, 18.956, 2142.6748123340335], [58.8524, 5.7352, 2136.2844967614647], [59.7439, 10.2045, 2182.7982781750616], [59.2181, 10.9298, 5372.72459213111], [59.139, 9.6561, 869.680443590385], [62.4722, 6.1549, 3533.384590105371], [59.4138, 5.268, 4718.005501052106], [59.2675, 10.4076, 5488.14692219211], [59.434, 10.6577, 3512.4834930135225], [67.2804, 14.4049, 3673.8228500967784], [58.4615, 8.772, 5797.705910951495], [60.7945, 11.067, 1761.0288020622922], [59.12, 11.3875, 2588.752061032314], [68.4385, 17.4272, 1196.50549854896], [60.7959, 10.6917, 3167.2476960199688]], [[59.9139, 10.7522, 5136.398220950039], [60.3928, 5.3239, 3694.5678447598348], [63.4305, 10.3951, 3706.5160048554803], [58.969, 5.7331, 5102.670802686412], [58.1467, 7.9956, 5403.075320190976], [69.6496, 18.956, 1886.1309689419181], [58.8524, 5.7352, 1913.4946365285564], [59.7439, 10.2045, 1938.215862035302], [59.2181, 10.9298, 4864.886392713083], [59.139, 9.6561, 771.9483925576785], [62.4722, 6.1549, 3245.8174615506437], [59.4138, 5.268, 4313.6358581121785], [59.2675, 10.4076, 5004.64892140173], [59.434, 10.6577, 3199.5822096803163], [67.2804, 14.4049, 3338.216951935662], [58.4615, 8.772, 5215.700973557589], [60.7945, 11.067, 1624.4458996567676], [59.12, 11.3875, 2296.0086802154074], [68.4385, 17.4272, 1008.1654695484914], [60.7959, 10.6917, 2897.4303045849356]], [[59.9139, 10.7522, 4541.3974339758315], [60.3928, 5.3239, 3238.0769795265555], [63.4305, 10.3951, 3291.680981513575], [58.969, 5.7331, 4539.820152550774], [58.1467, 7.9956, 4840.931272249247], [69.6496, 18.956, 1649.8446035269758], [58.8524, 5.7352, 1710.992898160558], [59.7439, 10.2045, 1740.752606585626], [59.2181, 10.9298, 4324.680657791925], [59.139, 9.6561, 679.7673196086795], [62.4722, 6.1549, 2790.2206765403193], [59.4138, 5.268, 3786.427717572361], [59.2675, 10.4076, 4400.853126461769], [59.434, 10.6577, 2796.269894818654], [67.2804, 14.4049, 2940.0386184306535], [58.4615, 8.772, 4612.960118440101], [60.7945, 11.067, 1536.3012580421032], [59.12, 11.3875, 2032.0502963396796], [68.4385, 17.4272, 945.8835206832156], [60.7959, 10.6917, 2562.425114156742]], [[59.9139, 10.7522, 4018.9850643940035], [60.3928, 5.3239, 2809.420294538761], [63.4305, 10.3951, 2855.8195054046614], [58.969, 5.7331, 3972.219244516119], [58.1467, 7.9956, 4156.238237990793], [69.6496, 18.956, 1455.570391090871], [58.8524, 5.7352, 1484.7923491082142], [59.7439, 10.2045, 1491.933750363105], [59.2181, 10.9298, 3744.894021749391], [59.139, 9.6561, 612.8155770342346], [62.4722, 6.1549, 2453.6437676542214], [59.4138, 5.268, 3293.9733825934895], [59.2675, 10.4076, 3839.7149384666245], [59.434, 10.6577, 2423.4177931989], [67.2804, 14.4049, 2581.690597937011], [58.4615, 8.772, 4072.512160934378], [60.7945, 11.067, 1258.022929441598], [59.12, 11.3875, 1766.271875729526], [68.4385, 17.4272, 769.8424431459969], [60.7959, 10.6917, 2200.3656882561586]], [[59.9139, 10.7522, 3457.3866924584872], [60.3928, 5.3239, 2426.115967141427], [63.4305, 10.3951, 2429.1918457474226], [58.969, 5.7331, 3407.928659468271], [58.1467, 7.9956, 3606.6004578682173], [69.6496, 18.956, 1255.1523095235173], [58.8524, 5.7352, 1269.971119538563], [59.7439, 10.2045, 1275.809507404607], [59.2181, 10.9298, 3244.16251323515], [59.139, 9.6561, 465.3136958508636], [62.4722, 6.1549, 2115.85910145161], [59.4138, 5.268, 2835.603686669336], [59.2675, 10.4076, 3309.9247813888232], [59.434, 10.6577, 2063.2021754346965], [67.2804, 14.4049, 2221.5708171319907], [58.4615, 8.772, 3467.8245152240647], [60.7945, 11.067, 1087.0128179566932], [59.12, 11.3875, 1454.2393912534328], [68.4385, 17.4272, 676.7293122349369], [60.7959, 10.6917, 1918.3781878835268]], [[59.9139, 10.7522, 2989.116469390254], [60.3928, 5.3239, 2084.0174857011357], [63.4305, 10.3951, 2114.149627370562], [58.969, 5.7331, 2899.8364715502203], [58.1467, 7.9956, 3046.33478751403], [69.6496, 18.956, 1080.8412406246669], [58.8524, 5.7352, 1098.2563206836371], [59.7439, 10.2045, 1089.0818080998474], [59.2181, 10.9298, 2835.012391942147], [59.139, 9.6561, 449.05521676140796], [62.4722, 6.1549, 1852.8276761607806], [59.4138, 5.268, 2461.9969298179944], [59.2675, 10.4076, 2858.0449532667885], [59.434, 10.6577, 1787.1035835984578], [67.2804, 14.4049, 1903.4721369924762], [58.4615, 8.772, 3002.698173688537], [60.7945, 11.067, 918.0052057042282], [59.12, 11.3875, 1275.8664829637714], [68.4385, 17.4272, 572.980477194765], [60.7959, 10.6917, 1664.4873822102613]]],
-                {heatmapOptions: {
-                        radius: 15,
-                        blur: 0.8,
-                        minOpacity: 0,
-                        maxOpacity: 0.8,
-                        scaleRadius: false,
-                        useLocalExtrema: false,
-                        defaultWeight: 1,
-                        
-                    }
-                });
-
-        
-    
-            heat_map_11f70c000c10847d1273f0085002a5e0.addTo(map_9c6f8ae87247a8d7888f96019543e1b7);
-        
 </script>
 </html>
